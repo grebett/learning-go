@@ -5,32 +5,20 @@ import (
 	"fmt"
 )
 
-type List struct {
-	value string
-	next  *List
+type Animal struct {
+	name string
+	legs int
+}
+
+type Dog struct {
+	Animal
 }
 
 func main() {
-	var node *List
-	var begin *List
+	bobby := new(Dog)
 
-	begin = new(List)
-	begin.value = "this is the start node"
-	node = addNode(begin, "and this is a second node")
-	node = addNode(node, "and this is a third node")
+	bobby.name = "bobby"
+	bobby.legs = 4
 
-	node = begin
-	for node != nil {
-		fmt.Println(node.value)
-		node = node.next
-	}
-}
-
-func addNode(node *List, value string) *List {
-	newNode := new(List)
-
-	newNode.value = value
-	node.next = newNode
-
-	return newNode
+	fmt.Println(bobby)
 }
