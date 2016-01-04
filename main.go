@@ -7,24 +7,33 @@ import (
 
 type Shaper interface {
 	Area() int
+	//	Missing() string
 }
 
 type Square struct {
 	side int
 }
 
+type Rectangle struct {
+	width  int
+	height int
+}
+
 func (s *Square) Area() int {
 	return s.side * s.side
 }
 
+func (r *Rectangle) Area() int {
+	return r.width * r.height
+}
+
 func main() {
-	s := new(Square)
-	s.side = 5
+	s := &Square{5}
+	r := &Rectangle{5, 4}
 
-	// check if interface is implemented
-	var areaIntf Shaper
-	areaIntf = s
-
-	// use method from the interface variable
-	fmt.Println(areaIntf.Area())
+	shapes := []Shaper{s, r}
+	for _, shape := range shapes {
+		fmt.Println(shape)
+		fmt.Println(shape.Area())
+	}
 }
