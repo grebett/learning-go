@@ -1,4 +1,4 @@
-// Working with slices II
+// Working with slices – append
 package main
 
 import (
@@ -7,10 +7,8 @@ import (
 
 func main() {
 	str := "Hello world!"
-	slice := []rune(str)
-
-	for i := range slice {
-		slice[i] += 1
-	}
-	fmt.Printf(string(slice))
+	sub1 := str[:5]
+	sub2 := str[5:]
+	joined := append([]rune(sub1), []rune(sub2)...)
+	fmt.Printf(string(joined))
 }
