@@ -1,23 +1,22 @@
-// Working with maps
+// Working with structs
 package main
 
 import (
 	"fmt"
 )
 
+type Person struct {
+	firstName string
+	lastName  string
+	age       int
+}
+
 func main() {
-	var m = map[string]int{"one": 1, "two": 2}
-	n := make(map[string]int)
+	p := &Person{"Grégory", "Betton", 30}
+	q := new(Person)
 
-	n["three"] = 3
-	n["for"] = 4
-
-	fmt.Println(m)
-	fmt.Println(n)
-
-	if _, ok := n["five"]; ok {
-		fmt.Println("`five` key exists")
-	} else {
-		fmt.Println("`five` key does not exist")
-	}
+	q.firstName = "Marc"
+	q.lastName = "Twain"
+	q.age = 186
+	fmt.Printf("%v and %v", p, q)
 }
