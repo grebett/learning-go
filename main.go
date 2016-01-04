@@ -5,20 +5,17 @@ import (
 	"fmt"
 )
 
-type Animal struct {
+type Dog struct {
 	name string
-	legs int
 }
 
-type Dog struct {
-	Animal
+func (d *Dog) bark() {
+	fmt.Printf("%s barks: woof woof!\n", d.name)
 }
 
 func main() {
-	bobby := new(Dog)
+	var bobby *Dog
 
-	bobby.name = "bobby"
-	bobby.legs = 4
-
-	fmt.Println(bobby)
+	bobby = &Dog{"bobby"}
+	bobby.bark()
 }
