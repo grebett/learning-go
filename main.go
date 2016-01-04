@@ -9,13 +9,14 @@ type Dog struct {
 	name string
 }
 
-func (d *Dog) bark() {
-	fmt.Printf("%s barks: woof woof!\n", d.name)
+func (d *Dog) String() string {
+	return "My name is " + d.name + " and I'm a dog!"
 }
 
 func main() {
 	var bobby *Dog
 
 	bobby = &Dog{"bobby"}
-	bobby.bark()
+
+	fmt.Println(bobby)
 }
