@@ -1,22 +1,30 @@
-// Working with structs
+// Working with interfaces
 package main
 
 import (
 	"fmt"
 )
 
-type Dog struct {
-	name string
+type Shaper interface {
+	Area() int
 }
 
-func (d *Dog) String() string {
-	return "My name is " + d.name + " and I'm a dog!"
+type Square struct {
+	side int
+}
+
+func (s *Square) Area() int {
+	return s.side * s.side
 }
 
 func main() {
-	var bobby *Dog
+	s := new(Square)
+	s.side = 5
 
-	bobby = &Dog{"bobby"}
+	// check if interface is implemented
+	var areaIntf Shaper
+	areaIntf = s
 
-	fmt.Println(bobby)
+	// use method from the interface variable
+	fmt.Println(areaIntf.Area())
 }
