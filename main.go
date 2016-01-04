@@ -1,14 +1,21 @@
-// Working with slices – append
+// Working with arrays – vertices
 package main
 
 import (
 	"fmt"
 )
 
+type vertex [3]int
+
 func main() {
-	str := "Hello world!"
-	sub1 := str[:5]
-	sub2 := str[5:]
-	joined := append([]rune(sub1), []rune(sub2)...)
-	fmt.Printf(string(joined))
+	a := vertex{25, -12, 4}
+
+	fmt.Println(invert(a))
+}
+
+func invert(v vertex) vertex {
+	for i := range v {
+		v[i] *= -1
+	}
+	return v
 }
