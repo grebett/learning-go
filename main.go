@@ -7,25 +7,18 @@ import (
 )
 
 type Data struct {
-	String      string
-	InnerStruct *InnerStruct
-}
-
-type InnerStruct struct {
-	Int    int
 	String string
-	Map    map[string]string
+	//	Int    int
 }
 
 func main() {
-	inner := &InnerStruct{42, "hello world", map[string]string{"hello": "world"}}
-	data := &Data{"JSON IS GREAT", inner}
-	fmt.Println(data)
+	var data Data
+	JSONstring := "{\"String\":\"hello world!\", \"Int\": 42}" // If there is more info in JSON than receiving struct can accept, info is discard
 
-	encoded, err := json.Marshal(data)
+	err := json.Unmarshal([]byte(JSONstring), &data)
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Println(string(encoded))
+		fmt.Println(data)
 	}
 }
