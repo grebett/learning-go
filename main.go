@@ -8,13 +8,15 @@ import (
 )
 
 func main() {
-	inputReader := bufio.NewReader(os.Stdin)
+	file, err := os.OpenFile("output.dat", os.O_WRONLY|os.O_CREATE, 0644)
 
-	fmt.Println("Enter something:")
-	input, err := inputReader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		fmt.Printf("The input entered is: %s", input)
+		defer file.Close()
+
+		writer := bufio.NewWriter(file)
+		writer.WriteString("Hey, this is a string I wrote from a go program!")
+		writer.Flush()
 	}
 }
