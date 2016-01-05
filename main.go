@@ -1,32 +1,20 @@
-// Error handling
+// Error handling – panic bubbling
 package main
 
-import (
-	"fmt"
-	"time"
-)
-
-// creating a custom struct
-type CustomError struct {
-	when    time.Time
-	message string
-}
-
-// using this struct as an error - i.e adding an Error method to the struct
-func (e *CustomError) Error() string {
-	return fmt.Sprintf("Error (%v): %s", e.when, e.message)
-}
-
-func Test(i int) (int, error) {
-	if i < 0 {
-		// calling the error method immediatly using a struct pointer
-		return 0, &CustomError{time.Now(), "the i number should not be negative"}
-	} else {
-		return i, nil
-	}
-}
+import "fmt"
 
 func main() {
-	fmt.Println(Test(-1))
-	fmt.Println(Test(1))
+	defer func() { fmt.Println("main defer is executed") }()
+	fn1()
+	fmt.Println("this is not executed")
+}
+
+func fn1() {
+	defer func() { fmt.Println("fn1 defer is executed") }()
+	fn2()
+}
+
+func fn2() {
+	defer func() { fmt.Println("fn2 defer is executed") }()
+	panic("panic in fn2")
 }
