@@ -1,24 +1,19 @@
-// Error handling – panic bubbling
+// goroutines
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	test()
-	fmt.Println("this is executed")
+	fmt.Println("before helloInterval")
+	go hello()
+	fmt.Println("after helloInterval")
+	time.Sleep(time.Second * 2)
 }
 
-func test() {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Printf("An error as been caught: %v\n", err)
-		}
-	}()
-
-	fn()
-	fmt.Println("this is not executed") // because panic goes to defer immediatly
-}
-
-func fn() {
-	panic("oh no!")
+func hello() {
+	time.Sleep(time.Second)
+	fmt.Println("hello world!")
 }
