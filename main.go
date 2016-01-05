@@ -4,17 +4,21 @@ package main
 import "fmt"
 
 func main() {
-	defer func() { fmt.Println("main defer is executed") }()
-	fn1()
-	fmt.Println("this is not executed")
+	test()
+	fmt.Println("this is executed")
 }
 
-func fn1() {
-	defer func() { fmt.Println("fn1 defer is executed") }()
-	fn2()
+func test() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("An error as been caught: %v\n", err)
+		}
+	}()
+
+	fn()
+	fmt.Println("this is not executed") // because panic goes to defer immediatly
 }
 
-func fn2() {
-	defer func() { fmt.Println("fn2 defer is executed") }()
-	panic("panic in fn2")
+func fn() {
+	panic("oh no!")
 }
