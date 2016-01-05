@@ -1,39 +1,20 @@
-// Working with interfaces
+// Reading and writing
 package main
 
 import (
 	"fmt"
 )
 
-type Shaper interface {
-	Area() int
-	//	Missing() string
-}
-
-type Square struct {
-	side int
-}
-
-type Rectangle struct {
-	width  int
-	height int
-}
-
-func (s *Square) Area() int {
-	return s.side * s.side
-}
-
-func (r *Rectangle) Area() int {
-	return r.width * r.height
-}
-
 func main() {
-	s := &Square{5}
-	r := &Rectangle{5, 4}
+	var (
+		name, animal string
+	)
 
-	shapes := []Shaper{s, r}
-	for _, shape := range shapes {
-		fmt.Println(shape)
-		fmt.Println(shape.Area())
-	}
+	fmt.Println("What is your name?")
+	fmt.Scanln(&name)
+	fmt.Printf("Your name is %s\n", name)
+
+	fmt.Println("And what is your favorite animal?")
+	fmt.Scanf("the %s", &animal)
+	fmt.Printf("Ah, it's the %s\n", animal)
 }
