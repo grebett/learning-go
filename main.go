@@ -1,22 +1,31 @@
-// Reading and writing
+// JSON and go – http://blog.golang.org/json-and-go
 package main
 
 import (
-	"bufio"
+	"encoding/json"
 	"fmt"
-	"os"
 )
 
-func main() {
-	file, err := os.OpenFile("output.dat", os.O_WRONLY|os.O_CREATE, 0644)
+type Data struct {
+	String      string
+	InnerStruct *InnerStruct
+}
 
+type InnerStruct struct {
+	Int    int
+	String string
+	Map    map[string]string
+}
+
+func main() {
+	inner := &InnerStruct{42, "hello world", map[string]string{"hello": "world"}}
+	data := &Data{"JSON IS GREAT", inner}
+	fmt.Println(data)
+
+	encoded, err := json.Marshal(data)
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		defer file.Close()
-
-		writer := bufio.NewWriter(file)
-		writer.WriteString("Hey, this is a string I wrote from a go program!")
-		writer.Flush()
+		fmt.Println(string(encoded))
 	}
 }
