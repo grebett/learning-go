@@ -7,13 +7,21 @@ import (
 )
 
 func main() {
-	fmt.Println("before helloInterval")
-	go hello()
-	fmt.Println("after helloInterval")
-	time.Sleep(time.Second * 2)
+	ch := make(chan string)
+	go sendData(ch)
+	go getData(ch)
+	time.Sleep(2 * time.Second)
 }
 
-func hello() {
-	time.Sleep(time.Second)
-	fmt.Println("hello world!")
+func getData(ch chan string) {
+	for {
+		str := <-ch
+		fmt.Println(str)
+	}
+}
+
+func sendData(ch chan string) {
+	ch <- "hello"
+	time.Sleep(1 * time.Second)
+	ch <- "world"
 }
